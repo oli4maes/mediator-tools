@@ -2,8 +2,8 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/oli4maes/mediator-tools/internal/filegeneration"
 	"github.com/spf13/cobra"
-	"os"
 )
 
 var feature string
@@ -15,12 +15,19 @@ var generateCmd = &cobra.Command{
 	Long: `Generate all needed files for a given feature.
 These files are: handler, request and response`,
 	Run: func(cmd *cobra.Command, args []string) {
-		handlerB := []byte("package " + feature)
-		err := os.WriteFile("handler.go", handlerB, 0644)
+		err := filegeneration.GenerateFiles(feature, filegeneration.RequestFileType)
 		if err != nil {
-			fmt.Println(err)
 			return
 		}
+		err = filegeneration.GenerateFiles(feature, filegeneration.ResponseFileType)
+		if err != nil {
+			return
+		}
+		err = filegeneration.GenerateFiles(feature, filegeneration.HandlerFileType)
+		if err != nil {
+			return
+		}
+
 		fmt.Println("files generated")
 	},
 }
