@@ -1,0 +1,11 @@
+namespace
+
+internal sealed class {{ .FeatureName }}Handler : IRequestHandler<{{ .FeatureName }}Request, {{ .FeatureName }}Response>
+{
+    public {{ .FeatureName }}Handler(){}
+
+    public async Task<{{ .FeatureName }}Response> Handle({{ .FeatureName }}Request request, CancellationToken cancellationToken)
+    {
+        return new {{ .FeatureName }}Response(){};
+    }
+}

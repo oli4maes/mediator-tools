@@ -7,41 +7,48 @@ import (
 )
 
 var feature string
+var lang string
 
 // generateCmd represents the generate command
 var generateCmd = &cobra.Command{
 	Use:   "generate",
 	Short: "Generate 'handler', 'request' and 'response' files for a feature.",
 	Long: `Generate all needed files for a given feature.
-These files are: handler, request and response`,
+			These files are: handler, request and response`,
 	Run: func(cmd *cobra.Command, args []string) {
-		err := filegeneration.GenerateFiles(feature, filegeneration.RequestFileType)
-		if err != nil {
-			return
-		}
-		err = filegeneration.GenerateFiles(feature, filegeneration.ResponseFileType)
-		if err != nil {
-			return
-		}
-		err = filegeneration.GenerateFiles(feature, filegeneration.HandlerFileType)
-		if err != nil {
-			return
+		if lang != "" && feature != "" {
+			langId, err := filegeneration.GetLangType(lang)
+			if err != nil {
+				fmt.Println(err)
+			}
+
+			err = filegeneration.GenerateFiles(feature, filegeneration.RequestFileType, langId)
+			if err != nil {
+				return
+			}
+			err = filegeneration.GenerateFiles(feature, filegeneration.ResponseFileType, langId)
+			if err != nil {
+				return
+			}
+			err = filegeneration.GenerateFiles(feature, filegeneration.HandlerFileType, langId)
+			if err != nil {
+				return
+			}
+
+			fmt.Println("files generated")
 		}
 
-		fmt.Println("files generated")
+		if lang == "" {
+			fmt.Println("please provide a valid language with --language flag (supports: 'go', 'cs')")
+		}
+		if feature == "" {
+			fmt.Println("please provide a feature name --feature flag")
+		}
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(generateCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	//generateCmd.PersistentFlags().String("feature", "", "The name of the feature.")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	generateCmd.Flags().StringVarP(&feature, "feature", "f", "", "usage")
+	generateCmd.Flags().StringVarP(&feature, "feature", "f", "", "feature name")
+	generateCmd.Flags().StringVarP(&lang, "language", "l", "", "programming language (supports: 'go', 'cs')")
 }

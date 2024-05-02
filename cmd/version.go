@@ -9,7 +9,7 @@ import (
 // versionCmd represents the version command
 var versionCmd = &cobra.Command{
 	Use:   "version",
-	Short: "medaitor-tools version",
+	Short: "mediator-tools version",
 	Long:  `Every application has a version, this is mediator-tools.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("mediator-tools v0.1")

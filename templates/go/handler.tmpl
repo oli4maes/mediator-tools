@@ -1,11 +1,11 @@
-package {{ .Name }}
+package {{ .FeatureName }}
 
 import (
 	"context"
 	"github.com/oli4maes/mediator"
 )
 
-// Register {{ .Name }}Handler
+// Register {{ .FeatureName }}Handler
 func init() {
 	err := mediator.Register[Request, Response](handler{})
 	if err != nil {

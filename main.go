@@ -8,7 +8,13 @@ func main() {
 	cmd.Execute()
 
 	// Uncomment to test file generation
-	//filegeneration.GenerateFiles("getcocktails", filegeneration.HandlerFileType)
-	//filegeneration.GenerateFiles("getcocktails", filegeneration.RequestFileType)
-	//filegeneration.GenerateFiles("getcocktails", filegeneration.ResponseFileType)
+	// GOLANG
+	//filegeneration.GenerateFiles("test", filegeneration.HandlerFileType, filegeneration.Golang)
+	//filegeneration.GenerateFiles("test", filegeneration.RequestFileType, filegeneration.Golang)
+	//filegeneration.GenerateFiles("test", filegeneration.ResponseFileType, filegeneration.Golang)
+
+	// C#
+	//filegeneration.GenerateFiles("Test", filegeneration.HandlerFileType, filegeneration.CSharp)
+	//filegeneration.GenerateFiles("Test", filegeneration.RequestFileType, filegeneration.CSharp)
+	//filegeneration.GenerateFiles("Test", filegeneration.ResponseFileType, filegeneration.CSharp)
 }
